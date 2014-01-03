@@ -18,17 +18,12 @@
  *
  */
 
-// load builder classes
-require __DIR__."/lib/builder.lib.php";
-require __DIR__."/lib/generator.lib.php";
-require __DIR__."/lib/watcher.lib.php";
+require '../vendor/autoload.php';
 
-// load mustache & register it
-require __DIR__."/lib/Mustache/Autoloader.php";
+
+
 Mustache_Autoloader::register();
 
-// load css rule saver
-require __DIR__."/lib/css-rule-saver/css-rule-saver.php";
 
 // make sure this script is being accessed from the command line
 if (php_sapi_name() == 'cli') {
