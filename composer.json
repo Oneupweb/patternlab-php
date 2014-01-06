@@ -13,12 +13,13 @@
         }
     ],
     "require": {
+        "php": ">=5.3.3",
         "mustache/mustache": "2.5.*",
         "css-rule-saver": "dev"
     },
     "autoload": {
         "psr-0": {
-            "": "builder/lib/"
+            "": "lib/"
         }
     }
 }

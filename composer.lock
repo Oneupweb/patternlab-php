@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "1b96d686deafb55d398862893cd1d393",
+    "hash": "9e19fe8d947955060acacb99d292b9f5",
     "packages": [
         {
             "name": "css-rule-saver",
@@ -72,9 +72,9 @@
     "stability-flags": {
         "css-rule-saver": 20
     },
-    "platform": [
-
-    ],
+    "platform": {
+        "php": ">=5.3.3"
+    },
     "platform-dev": [
 
     ]
