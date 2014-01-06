@@ -154,24 +154,24 @@ class Mustache_Loader_PatternLoader implements Mustache_Loader
     }
 
     private function getPatternInfo($name) {
-	
-		$patternBits = explode("-",$name);
-		
-		$i = 1;
-		$k = 2;
-		$c = count($patternBits);
-		$patternType = $patternBits[0];
-		while (!isset($this->patternPaths[$patternType]) && ($i < $c)) {
-			$patternType .= "-".$patternBits[$i];
-			$i++;
-			$k++;
-		}
-		
-		$patternBits = explode("-",$name,$k);
-		$pattern = $patternBits[count($patternBits)-1];
-		
-		return array($patternType, $pattern);
-		
-	}
-	
+    
+        $patternBits = explode("-",$name);
+        
+        $i = 1;
+        $k = 2;
+        $c = count($patternBits);
+        $patternType = $patternBits[0];
+        while (!isset($this->patternPaths[$patternType]) && ($i < $c)) {
+            $patternType .= "-".$patternBits[$i];
+            $i++;
+            $k++;
+        }
+        
+        $patternBits = explode("-",$name,$k);
+        $pattern = $patternBits[count($patternBits)-1];
+        
+        return array($patternType, $pattern);
+        
+    }
+    
 }
