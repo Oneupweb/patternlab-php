@@ -27,16 +27,20 @@ Mustache_Autoloader::register();
 
 // make sure this script is being accessed from the command line
 if (php_sapi_name() !== 'cli') {
-    die('The builder script can only be run from the command line.');
+    throw new Exception('The builder script can only be run from the command line.');
 }
 
 $configLocation = __DIR__ . '/../config/config.ini';
 
 if (!file_exists($configLocation)) {
-    die('A configuration file is required. Look at config/config.ini.default for an example!');
+    throw new Exception('A configuration file is required. Look at config/config.ini.default for an example!');
 }
 
 $config = parse_ini_file($configLocation);
+
+if (!$config) {
+    throw new Exception("The supplied configuration file at {$configLocation} is invalid. Please see config.ini.default in the same directory for an example");
+}
 
 $args = getopt("gwc");
 
@@ -48,6 +52,8 @@ if (isset($args['g']) || isset($args['w'])) {
     $g = new Generatr($config);
 
     echo "your site has been generated...\n";
+
+    $g->generate();
 
 }
 
