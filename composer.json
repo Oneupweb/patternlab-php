@@ -1,0 +1,24 @@
+{
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "css-rule-saver",
+                "version": "dev",
+                "dist": {
+                    "url": "https://github.com/dmolsen/css-rule-saver/archive/master.zip",
+                    "type": "zip"
+                }
+            }
+        }
+    ],
+    "require": {
+        "mustache/mustache": "2.5.*",
+        "css-rule-saver": "dev"
+    },
+    "autoload": {
+        "psr-0": {
+            "": "builder/lib/"
+        }
+    }
+}

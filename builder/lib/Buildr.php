@@ -36,19 +36,8 @@ class Buildr {
 	* When initializing the Builder class or the sub-classes make sure the base properties are configured
 	* Also, create the config if it doesn't already exist
 	*/
-	public function __construct() {
-		
-		// set-up the configuration options for patternlab
-		if (!($config = @parse_ini_file(__DIR__."/../../config/config.ini"))) {
-			// config.ini didn't exist so attempt to create it using the default file
-			if (!@copy(__DIR__."/../../config/config.ini.default", __DIR__."/../../config/config.ini")) {
-				print "Please make sure config.ini.default exists before trying to have Pattern Lab build the config.ini file automagically. Check permissions of config/.";
-				exit;
-			} else {
-				$config = parse_ini_file(__DIR__."/../../config/config.ini");
-			}
-		}
-		
+	public function __construct($config=array()) {
+
 		// populate some standard variables out of the config
 		foreach ($config as $key => $value) {
 			
