@@ -1,5 +1,10 @@
 <?php
 
+namespace PatternLab;
+
+use \Mustache_Engine as Engine;
+use \Mustache_Loader_PatternLoader as PatternLoader;
+use \Mustache_Loader_FilesystemLoader as FilesystemLoader;
 /*!
  * Pattern Lab Builder Class - v0.6.2
  *
@@ -10,7 +15,7 @@
  *
  */
 
-class Buildr {
+class Builder {
 
 	// i was lazy when i started this project & kept (mainly) to two letter vars. sorry.
 	protected $mpl;               // mustache pattern loader instance
@@ -44,7 +49,7 @@ class Buildr {
 			// if the variables are array-like make sure the properties are validated/trimmed/lowercased before saving
 			if (($key == "ie") || ($key == "id")) {
 				$values = explode(",",$value);
-				array_walk($values,'Buildr::trim');
+				array_walk($values,'PatternLab\Builder::trim');
 				$this->$key = $values;
 			} else {
 				$this->$key = $value;
@@ -72,9 +77,9 @@ class Buildr {
 	* @return {Object}       an instance of the Mustache engine
 	*/
 	protected function loadMustachePatternLoaderInstance() {
-		$this->mpl = new Mustache_Engine(array(
-						"loader" => new Mustache_Loader_PatternLoader(__DIR__.$this->sp,array("patternPaths" => $this->patternPaths)),
-						"partials_loader" => new Mustache_Loader_PatternLoader(__DIR__.$this->sp,array("patternPaths" => $this->patternPaths))
+		$this->mpl = new Engine(array(
+						"loader" => new PatternLoader(__DIR__.$this->sp,array("patternPaths" => $this->patternPaths)),
+						"partials_loader" => new PatternLoader(__DIR__.$this->sp,array("patternPaths" => $this->patternPaths))
 		));
 	}
 	
@@ -84,9 +89,9 @@ class Buildr {
 	* @return {Object}       an instance of the Mustache engine
 	*/
 	protected function loadMustacheFileSystemLoaderInstance() {
-		$this->mfs = new Mustache_Engine(array(
-						"loader" => new Mustache_Loader_FilesystemLoader(__DIR__."/../../source/_patternlab-files/"),
-						"partials_loader" => new Mustache_Loader_FilesystemLoader(__DIR__."/../../source/_patternlab-files/partials/")
+		$this->mfs = new Engine(array(
+						"loader" => new FilesystemLoader(__DIR__."/../../source/_patternlab-files/"),
+						"partials_loader" => new FilesystemLoader(__DIR__."/../../source/_patternlab-files/partials/")
 		));
 	}
 	
@@ -128,7 +133,7 @@ class Buildr {
 		$sd = $this->gatherPartials();
 		
 		// sort partials by patternLink
-		usort($sd['partials'], "Buildr::sortPartials");
+		usort($sd['partials'], "PatternLab\Builder::sortPartials");
 		
 		// render the "view all" pages
 		$this->generateViewAllPages();
@@ -289,13 +294,13 @@ class Buildr {
 			$k = 1;
 			$c = count($listItems)+1;
 			
-			$this->d->listItems = new stdClass();
+			$this->d->listItems = new \stdClass();
 			
 			while ($k < $c) {
 				
 				shuffle($listItems);
 				$itemsArray = array();
-				$this->d->listItems->$numbers[$k-1] = new stdClass();
+				$this->d->listItems->$numbers[$k-1] = new \stdClass();
 				
 				while ($i < $k) {
 					$itemsArray[] = $listItems[$i];
@@ -312,7 +317,7 @@ class Buildr {
 		}
 		
 		// add the link names for easy reference, makes 'link' a reserved word
-		$this->d->link = new stdClass();
+		$this->d->link = new \stdClass();
 		foreach($this->patternPaths as $patternTypeName => $patterns) {
 			
 			foreach($patterns as $pattern => $path) {
@@ -325,7 +330,7 @@ class Buildr {
 		
 		// add pattern specific data so it can override when a pattern (not partial!) is rendered
 		// makes 'patternSpecific' a reserved word
-		$this->d->patternSpecific = new stdClass();
+		$this->d->patternSpecific = new \stdClass();
 		foreach($this->patternTypes as $patternType) {
 			
 			// $this->d->patternSpecific["pattern-name-that-matches-render.mustache"] = array of data;
@@ -800,10 +805,10 @@ class Buildr {
 	protected function cleanPublic() {
 		
 		// find all of the patterns in public/. sort by the children first
-		$objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(__DIR__."/../../public/patterns/"), RecursiveIteratorIterator::CHILD_FIRST);
+		$objects = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(__DIR__."/../../public/patterns/"), \RecursiveIteratorIterator::CHILD_FIRST);
 		
 		// make sure dots are skipped
-		$objects->setFlags(FilesystemIterator::SKIP_DOTS);
+		$objects->setFlags(\FilesystemIterator::SKIP_DOTS);
 		
 		// for each file figure out what to do with it
 		foreach($objects as $name => $object) {
@@ -845,10 +850,10 @@ class Buildr {
 		// for the remaining dirs in public delete them and their files
 		foreach ($publicDirs as $dir) {
 			
-			$objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir), RecursiveIteratorIterator::CHILD_FIRST);
+			$objects = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($dir), \RecursiveIteratorIterator::CHILD_FIRST);
 			
 			// make sure dots are skipped
-			$objects->setFlags(FilesystemIterator::SKIP_DOTS);
+			$objects->setFlags(\FilesystemIterator::SKIP_DOTS);
 			
 			foreach($objects as $name => $object) {
 				

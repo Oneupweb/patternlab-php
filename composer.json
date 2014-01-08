@@ -15,7 +15,8 @@
     "require": {
         "php": ">=5.3.3",
         "mustache/mustache": "2.5.*",
-        "css-rule-saver": "dev"
+        "css-rule-saver": "dev",
+        "symfony/console": "2.4.x"
     },
     "autoload": {
         "psr-0": {

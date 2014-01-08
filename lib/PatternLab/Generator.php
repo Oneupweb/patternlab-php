@@ -1,5 +1,6 @@
 <?php
 
+namespace PatternLab;
 /*!
  * Pattern Lab Generator Class - v0.6.2
  *
@@ -11,7 +12,7 @@
  *
  */
 
-class Generatr extends Buildr {
+class Generator extends Builder {
     
     /**
     * Use the Builder __construct to gather the config variables
@@ -65,10 +66,10 @@ class Generatr extends Buildr {
         $this->generateMainPages();
         
         // iterate over the data files and regenerate the entire site if they've changed
-        $objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(__DIR__."/../../source/_data/"), RecursiveIteratorIterator::SELF_FIRST);
+        $objects = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(__DIR__."/../../source/_data/"), \RecursiveIteratorIterator::SELF_FIRST);
         
         // make sure dots are skipped
-        $objects->setFlags(FilesystemIterator::SKIP_DOTS);
+        $objects->setFlags(\FilesystemIterator::SKIP_DOTS);
         
         foreach($objects as $name => $object) {
             
@@ -80,10 +81,10 @@ class Generatr extends Buildr {
         }
         
         // iterate over all of the other files in the source directory
-        $objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(__DIR__."/../../source/"), RecursiveIteratorIterator::SELF_FIRST);
+        $objects = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(__DIR__."/../../source/"), \RecursiveIteratorIterator::SELF_FIRST);
         
         // make sure dots are skipped
-        $objects->setFlags(FilesystemIterator::SKIP_DOTS);
+        $objects->setFlags(\FilesystemIterator::SKIP_DOTS);
         
         foreach($objects as $name => $object) {
             

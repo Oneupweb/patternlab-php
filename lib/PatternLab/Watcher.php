@@ -1,5 +1,6 @@
 <?php
 
+namespace PatternLab;
 /*!
  * Pattern Lab Watcher Class - v0.6.2
  *
@@ -14,7 +15,7 @@
  *
  */
 
-class Watchr extends Buildr {
+class Watcher extends Builder {
     
     /**
     * Use the Builder __construct to gather the config variables
@@ -32,10 +33,10 @@ class Watchr extends Buildr {
     public function watch() {
         
         $c  = false;          // track that one loop through the pattern file listing has completed
-        $o  = new stdClass(); // create an object to hold the properties
-        $cp = new StdClass(); // create an object to hold a clone of $o
+        $o  = new \stdClass(); // create an object to hold the properties
+        $cp = new \StdClass(); // create an object to hold a clone of $o
         
-        $o->patterns = new stdClass();
+        $o->patterns = new \stdClass();
         
         // run forever
         while (true) {
@@ -44,10 +45,10 @@ class Watchr extends Buildr {
             $cp = clone $o->patterns;
             
             // iterate over the patterns & related data and regenerate the entire site if they've changed
-            $patternObjects  = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(__DIR__."/../../source/_patterns/"), RecursiveIteratorIterator::SELF_FIRST);
+            $patternObjects  = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(__DIR__."/../../source/_patterns/"), \RecursiveIteratorIterator::SELF_FIRST);
             
             // make sure dots are skipped
-            $patternObjects->setFlags(FilesystemIterator::SKIP_DOTS);
+            $patternObjects->setFlags(\FilesystemIterator::SKIP_DOTS);
             
             foreach($patternObjects as $name => $object) {
                     
@@ -128,10 +129,10 @@ class Watchr extends Buildr {
             }
             
             // iterate over the data files and regenerate the entire site if they've changed
-            $objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(__DIR__."/../../source/_data/"), RecursiveIteratorIterator::SELF_FIRST);
+            $objects = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(__DIR__."/../../source/_data/"), \RecursiveIteratorIterator::SELF_FIRST);
             
             // make sure dots are skipped
-            $objects->setFlags(FilesystemIterator::SKIP_DOTS);
+            $objects->setFlags(\FilesystemIterator::SKIP_DOTS);
             
             foreach($objects as $name => $object) {
                 
@@ -154,10 +155,10 @@ class Watchr extends Buildr {
             }
             
             // iterate over all of the other files in the source directory and move them if their modified time has changed
-            $objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(__DIR__."/../../source/"), RecursiveIteratorIterator::SELF_FIRST);
+            $objects = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(__DIR__."/../../source/"), \RecursiveIteratorIterator::SELF_FIRST);
             
             // make sure dots are skipped
-            $objects->setFlags(FilesystemIterator::SKIP_DOTS);
+            $objects->setFlags(\FilesystemIterator::SKIP_DOTS);
             
             foreach($objects as $name => $object) {
                 
